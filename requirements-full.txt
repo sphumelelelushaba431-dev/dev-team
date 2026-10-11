@@ -1,0 +1,8 @@
+# Full stack from the paper: BERT fine-tuning, sentence-transformer embeddings,
+# local Hugging Face LLM and Firebase. Install after requirements.txt:
+#   pip install -r requirements-full.txt
+-r requirements.txt
+torch>=2.1
+transformers>=4.40
+sentence-transformers>=2.7
+firebase-admin>=6.4

@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Staff sign in | CampusVoice{% endblock %}
+{% block content %}
+<form class="auth panel" method="post" novalidate>
+  <a class="back" href="{{ url_for('index') }}"><span aria-hidden="true">&larr;</span> Back to home</a>
+  <h2>Staff sign in</h2>
+  <p class="muted auth-lead">View and update student reports and check how the models are performing.</p>
+  <label for="email">Work email</label>
+  <input id="email" name="email" type="email" autocomplete="username" required autofocus>
+  <label for="password">Password</label>
+  <input id="password" name="password" type="password" autocomplete="current-password" required>
+  {% if error %}<p class="error" role="alert">{{ error }}</p>{% endif %}
+  <button class="btn" type="submit">Sign in</button>
+  <p class="muted">New staff member? Ask your system administrator for an account.</p>
+</form>
+{% endblock %}

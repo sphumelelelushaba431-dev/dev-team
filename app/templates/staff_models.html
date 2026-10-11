@@ -1,0 +1,25 @@
+{% extends "staff_base.html" %}
+{% block title %}Model performance | CampusVoice{% endblock %}
+{% block bodyclass %}onescreen{% endblock %}
+{% block content %}
+<div class="mhead">
+  <div>
+    <h1 class="h-compact">RAG performance</h1>
+    <p class="info-line" id="meta">Loading results...</p>
+  </div>
+  <div class="run">
+    <span id="runState" class="muted" aria-live="polite"></span>
+    <button class="btn secondary" id="runBtn" type="button">Re-run evaluation</button>
+  </div>
+</div>
+<div class="model-tiles" id="tiles"></div>
+<div class="mgrid">
+  <section class="panel chart-panel"><h3>Accuracy, precision, recall and F1 by model</h3><div class="chart-box"><canvas id="cBars"></canvas></div></section>
+  <section class="panel chart-panel"><h3>Metric profile</h3><div class="chart-box"><canvas id="cRadar"></canvas></div></section>
+  <section class="panel chart-panel"><h3>Confusion matrix (rows: actual department, columns: predicted)</h3><div class="heatmaps" id="heatmaps"></div></section>
+</div>
+{% endblock %}
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/chart.umd.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/models.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}CampusVoice{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="{% block bodyclass %}{% endblock %}">
+  {% block topbar %}
+  <header class="topbar">
+    <a class="brand" href="{{ url_for('index') }}"><span class="brand-mark" aria-hidden="true"></span>CampusVoice</a>
+    <nav aria-label="Main">
+      <a href="{{ url_for('index') }}" {% if request.endpoint == 'index' %}aria-current="page"{% endif %}>Home</a>
+      {% if request.endpoint != 'staff_login' %}
+        <a href="{{ url_for('chat_page') }}" {% if request.endpoint == 'chat_page' %}aria-current="page"{% endif %}>Chat</a>
+      {% endif %}
+      {% if request.endpoint == 'index' %}
+        {% if staff %}
+          <a href="{{ url_for('staff_reports') }}">Staff dashboard</a>
+        {% else %}
+          <a href="{{ url_for('staff_login') }}">Staff sign in</a>
+        {% endif %}
+      {% endif %}
+    </nav>
+  </header>
+  {% endblock %}
+  {% block shell %}<main>{% block content %}{% endblock %}</main>{% endblock %}
+  {% block scripts %}{% endblock %}
+</body>
+</html>

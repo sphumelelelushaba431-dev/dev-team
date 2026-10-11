@@ -1,0 +1,12 @@
+# Core: runs fully offline (MLP deep learning fallback, LSA embeddings, FAISS vector DB, extractive answers)
+flask>=3.0
+scikit-learn>=1.3
+pandas>=2.0
+openpyxl>=3.1
+numpy>=1.24
+joblib>=1.3
+requests>=2.31
+faiss-cpu>=1.7.4
+python-dotenv>=1.0
+pypdf>=4.0
+pytest>=8.0

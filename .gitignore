@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+.env
+campusvoice.db
+artifacts/*
+!artifacts/.gitkeep
+data/university_complaints.csv
+firebase-key.json
+.venv/
+# Local environment and respondent data
+venv/
+data/AI_Chatbots_Students_Attitude_Dataset_EN.xlsx

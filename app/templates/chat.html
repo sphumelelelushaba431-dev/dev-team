@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Chat | CampusVoice{% endblock %}
+{% block content %}
+<div class="chat-wrap">
+  <section class="chat" aria-label="Chat with CampusVoice">
+    <div class="log" id="log" aria-live="polite">
+      <div class="msg bot">Hi, I'm CampusVoice. Tell me what's wrong, for example a fees query, a Wi-Fi problem or a residence repair. I'll answer from university policy and log it with the right office. To check on an earlier report, send me its reference number.</div>
+    </div>
+    <form class="composer" id="composer">
+      <textarea id="message" rows="2" placeholder="Describe the problem..." aria-label="Your message" required></textarea>
+      <button class="btn" id="send" type="submit">Send</button>
+    </form>
+  </section>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>window.SESSION_ID = "{{ session_id }}";</script>
+<script src="{{ url_for('static', filename='js/chat.js') }}"></script>
+{% endblock %}

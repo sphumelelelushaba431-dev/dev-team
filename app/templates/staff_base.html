@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block topbar %}{% endblock %}
+{% block shell %}
+<div class="shell">
+  <aside class="sidebar" aria-label="Staff">
+    <a class="brand" href="{{ url_for('staff_reports') }}"><span class="brand-mark" aria-hidden="true"></span>CampusVoice <span class="brand-sub">Staff</span></a>
+
+    {% set parts = staff.name.split() %}
+    <section class="profile" aria-label="Your profile">
+      <div class="profile-head">
+        <span class="avatar" aria-hidden="true">{{ (parts[0][:1] ~ (parts[-1][:1] if parts|length > 1 else ''))|upper }}</span>
+        <div>
+          <strong class="profile-name">{{ staff.name }}</strong>
+          <span class="profile-role">{{ staff.department }}</span>
+        </div>
+      </div>
+      {% block profile_details %}
+      <dl class="profile-details">
+        {% if staff.email %}<div><dt>Email</dt><dd>{{ staff.email }}</dd></div>{% endif %}
+        {% if staff.staff_number %}<div><dt>Staff number</dt><dd>{{ staff.staff_number }}</dd></div>{% endif %}
+        <div><dt>Department</dt><dd>{{ staff.department }}</dd></div>
+        {% if staff.email %}<div><dt>Previous sign-in</dt><dd>{{ staff.last_login[:16]|replace('T', ' ') if staff.last_login else 'First sign-in' }}</dd></div>{% endif %}
+      </dl>
+      {% endblock %}
+    </section>
+
+    <nav class="side-nav" aria-label="Dashboard">
+      <a href="{{ url_for('staff_reports') }}" {% if request.endpoint == 'staff_reports' %}aria-current="page"{% endif %}>Student reports</a>
+      <a href="{{ url_for('staff_models') }}" {% if request.endpoint == 'staff_models' %}aria-current="page"{% endif %}>Model performance</a>
+    </nav>
+
+    <nav class="side-nav side-foot" aria-label="Site">
+      <a href="{{ url_for('index') }}">Home page</a>
+      <a class="signout" href="{{ url_for('staff_logout') }}">Sign out</a>
+    </nav>
+  </aside>
+  <main>{% block content %}{% endblock %}</main>
+</div>
+{% endblock %}

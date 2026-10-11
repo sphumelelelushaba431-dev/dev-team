@@ -1,0 +1,46 @@
+# Production deployment sketch (Kubernetes). Build and push the image first:
+#   docker build -t <registry>/campusvoice:1.0 . && docker push <registry>/campusvoice:1.0
+# Use Firebase (FIREBASE_CREDENTIALS) in production so all replicas share one database.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: campusvoice
+spec:
+  replicas: 2
+  selector:
+    matchLabels: { app: campusvoice }
+  template:
+    metadata:
+      labels: { app: campusvoice }
+    spec:
+      containers:
+        - name: campusvoice
+          image: <registry>/campusvoice:1.0
+          ports: [{ containerPort: 5000 }]
+          envFrom: [{ secretRef: { name: campusvoice-secrets } }]
+          readinessProbe:
+            httpGet: { path: /health, port: 5000 }
+            initialDelaySeconds: 10
+          resources:
+            requests: { cpu: "250m", memory: "512Mi" }
+            limits: { cpu: "1", memory: "1Gi" }
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: campusvoice
+spec:
+  selector: { app: campusvoice }
+  ports: [{ port: 80, targetPort: 5000 }]
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: campusvoice
+spec:
+  scaleTargetRef: { apiVersion: apps/v1, kind: Deployment, name: campusvoice }
+  minReplicas: 2
+  maxReplicas: 6
+  metrics:
+    - type: Resource
+      resource: { name: cpu, target: { type: Utilization, averageUtilization: 70 } }

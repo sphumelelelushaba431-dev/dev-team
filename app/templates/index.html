@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block bodyclass %}home{% endblock %}
+{% block content %}
+<section class="hero">
+  <div>
+    <p class="eyebrow">Student reporting chatbot</p>
+    <h1>Report a campus problem and get an answer in seconds</h1>
+    <p class="lead">Describe what is wrong in your own words. CampusVoice answers from the university's own policies, sends your report to the right office and gives you a reference number.</p>
+    <div class="actions">
+      <a class="btn" href="{{ url_for('chat_page') }}">Start a chat</a>
+      <a class="btn secondary" href="#how">See how it works</a>
+    </div>
+    <p class="muted hero-note">No account needed. Staff can <a href="{{ url_for('staff_login') }}">sign in here</a>.</p>
+  </div>
+  <div class="demo" aria-label="Example conversation">
+    <div class="msg user">wify in res keeps dropping and i cant submit my assignmnt</div>
+    <div class="msg bot">Log a call with the ICT Service Desk. If the system is down close to a deadline, ICT confirms the outage so your lecturer can grant an extension.</div>
+  </div>
+</section>
+
+<section class="band" id="how">
+  <h2>How it works</h2>
+  <ol class="steps">
+    <li><strong>You describe the problem</strong><span class="muted">Typos and informal language are fine. Personal numbers are masked before anything is stored.</span></li>
+    <li><strong>It is routed to a department</strong><span class="muted">A deep learning classifier picks the office and the urgency.</span></li>
+    <li><strong>You get an answer from policy</strong><span class="muted">Retrieval-augmented generation grounds the reply in official documents.</span></li>
+    <li><strong>Staff follow up when needed</strong><span class="muted">Formal, urgent or unclear reports go to a person, with a response target.</span></li>
+  </ol>
+</section>
+
+<section class="band">
+  <h2>What you can report</h2>
+  <div class="dept-cards">
+    <article style="--c: var(--academic)"><h3>Academic</h3><p class="muted">Exam remarks, timetable and assessment clashes, module access.</p></article>
+    <article style="--c: var(--finance)"><h3>Finance</h3><p class="muted">Fees, NSFAS and bursary allowances, refunds, registration blocks.</p></article>
+    <article style="--c: var(--ict)"><h3>ICT</h3><p class="muted">Wi-Fi, passwords and locked accounts, email, the learning system.</p></article>
+    <article style="--c: var(--facilities)"><h3>Facilities</h3><p class="muted">Repairs, cleanliness, lecture venues and safety hazards on campus.</p></article>
+    <article style="--c: var(--hostel)"><h3>Hostel</h3><p class="muted">Residence places, room maintenance, water and electricity.</p></article>
+  </div>
+</section>
+
+<section class="band split">
+  <div>
+    <h2>When staff respond</h2>
+    <p class="muted">Each report gets an urgency level, which sets how soon a staff member responds.</p>
+    <ul class="targets">
+      <li><span class="urg" data-u="Critical">Critical</span><span>within 4 hours</span></li>
+      <li><span class="urg" data-u="High">High</span><span>within 24 hours</span></li>
+      <li><span class="urg" data-u="Medium">Medium</span><span>within 3 working days</span></li>
+      <li><span class="urg" data-u="Low">Low</span><span>within 5 working days</span></li>
+    </ul>
+  </div>
+  <div class="track-card">
+    <h2>Check on a report</h2>
+    <p>Send your reference number in the chat, for example <strong>CV-2026-000123</strong>, and CampusVoice replies with its status and any note from staff.</p>
+    <a class="btn" href="{{ url_for('chat_page') }}">Open the chat</a>
+  </div>
+</section>
+
+<footer>CampusVoice. Report it once, to the right office.</footer>
+{% endblock %}
